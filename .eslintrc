@@ -7,17 +7,24 @@
 		"id-length": 0,
 		"new-cap": [2, {
 			"capIsNewExceptions": [
+				"ArrayFrom",
+				"Call",
 				"CreateIterResultObject",
 				"GetIntrinsic",
+				"GetIterator",
 				"OrdinaryObjectCreate",
+				"IsArray",
+				"IsCallable",
+				"IteratorClose",
+				"IteratorStep",
 				"SameValue",
 				"SameValueZero",
 				"ToString",
 				"Type"
-			],
+			]
 		}],
 		"no-magic-numbers": [2, {
-			"ignore": [0, 1]
+			"ignore": [0, 1, 2]
 		}],
 		"func-name-matching": 0
 	},
@@ -26,8 +33,8 @@
 		{
 			"files": "**/*.mjs",
 			"rules": {
-				"no-restricted-exports": 0,
-			},
-		},
-	],
+				"no-restricted-exports": 0
+			}
+		}
+	]
 }
