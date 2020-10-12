@@ -7,8 +7,19 @@
 		"id-length": 0,
 		"new-cap": [2, {
 			"capIsNewExceptions": [
+				"CreateIterResultObject",
+				"GetIntrinsic",
+				"OrdinaryObjectCreate",
+				"SameValue",
+				"SameValueZero",
+				"ToString",
+				"Type"
 			],
 		}],
+		"no-magic-numbers": [2, {
+			"ignore": [0, 1]
+		}],
+		"func-name-matching": 0
 	},
 
 	"overrides": [
