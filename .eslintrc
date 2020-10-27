@@ -4,6 +4,7 @@
 	"extends": "@ljharb",
 
 	"rules": {
+		"array-bracket-newline": 0,
 		"id-length": 0,
 		"new-cap": [2, {
 			"capIsNewExceptions": [

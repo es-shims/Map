@@ -77,7 +77,7 @@
     "array.from": "^1.1.0",
     "aud": "^1.1.2",
     "auto-changelog": "^2.2.1",
-    "eslint": "^7.12.0",
+    "eslint": "^7.12.1",
     "functions-have-names": "^1.2.1",
     "has-strict-mode": "^1.0.0",
     "safe-publish-latest": "^1.1.4",
