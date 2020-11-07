@@ -5,6 +5,7 @@ var isEnumerable = Object.prototype.propertyIsEnumerable;
 var functionsHaveNames = require('functions-have-names')();
 var define = require('define-properties');
 var hasSymbols = require('has-symbols')();
+var ArrayFrom = require('array.from').implementation;
 
 /* eslint-disable */
 
@@ -396,6 +397,22 @@ module.exports = function (Map, t) {
 		st.deepEqual(Array.from(map.keys()), ['a', 'b', 'c'], 'Array.from(map.keys()) returns the keys');
 		st.deepEqual(Array.from(map.values()), [1, NaN, false], 'Array.from(map.values()) returns the values');
 		st.deepEqual(Array.from(map.entries()), entriesArray(map), 'Array.from(map.entries()) returns the entries');
+
+		st.end();
+	});
+
+	t.test('should have an iterator that works with polyfilled Array.from', function (st) {
+		var map = new Map();
+
+		st.equal(map.set('a', 1), map, 'add "a"->1 to map');
+		st.equal(map.set('b', NaN), map, 'add "b"->NaN to map');
+		st.equal(map.set('c', false), map, 'add "c"->false to map');
+		st.deepEqual(ArrayFrom(map), [['a', 1], ['b', NaN], ['c', false]], 'Array.from(map) returns the entries');
+
+		// These don't work with es-get-iterator
+		st.deepEqual(ArrayFrom(map.keys()), ['a', 'b', 'c'], 'Array.from(map.keys()) returns the keys');
+		st.deepEqual(ArrayFrom(map.values()), [1, NaN, false], 'Array.from(map.values()) returns the values');
+		st.deepEqual(ArrayFrom(map.entries()), [['a', 1], ['b', NaN], ['c', false]], 'Array.from(map.entries()) returns the entries');
 
 		st.end();
 	});
