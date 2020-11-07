@@ -14,6 +14,7 @@
 				"GetIntrinsic",
 				"GetIterator",
 				"OrdinaryObjectCreate",
+				"OrdinarySetPrototypeOf",
 				"IsArray",
 				"IsCallable",
 				"IteratorClose",

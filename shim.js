@@ -3,13 +3,77 @@
 var define = require('define-properties');
 var globalThis = require('globalthis')();
 var getPolyfill = require('./polyfill');
+var support = require('./lib/support');
+var addIterableToMap = require('./lib/map-helpers').addIterableToMap;
 
-module.exports = function shimStringRaw() {
-	var polyfill = getPolyfill();
-	define(
-		globalThis,
-		{ Map: polyfill },
-		{ Map: function () { return typeof Map !== 'function' || Map !== polyfill; } }
-	);
-	return polyfill;
+var OrdinarySetPrototypeOf = require('es-abstract/2020/OrdinarySetPrototypeOf');
+var Call = require('es-abstract/2020/Call');
+
+var force = function () {
+	return true;
+};
+
+var replaceGlobal = function (MapShim) {
+	define(globalThis, { Map: MapShim }, { Map: force });
+	return MapShim;
+};
+
+// eslint-disable-next-line max-lines-per-function
+module.exports = function shimMap() {
+	if (typeof Map !== 'function' || support.mapHasOldFirefoxInterface() || !support.mapIterationFinishes()) {
+		return replaceGlobal(getPolyfill());
+	}
+
+	var OrigMap = Map;
+	var OrigMap$prototype = OrigMap.prototype;
+	var OrigMap$get = OrigMap$prototype.get;
+	var OrigMap$has = OrigMap$prototype.has;
+	var OrigMap$set = OrigMap$prototype.set;
+
+	if (!support.mapCompliantConstructor()) {
+		var MapShim = function Map() {
+			if (!(this instanceof MapShim)) {
+				throw new TypeError('Constructor Map requires "new"');
+			}
+			var m = new OrigMap();
+			if (arguments.length > 0) {
+				addIterableToMap(m, arguments[0]);
+			}
+			delete m.constructor;
+			OrdinarySetPrototypeOf(m, MapShim.prototype);
+			return m;
+		};
+		MapShim.prototype = OrigMap$prototype;
+		define(MapShim.prototype, { constructor: MapShim }, {
+			constructor: function () { return true; }
+		});
+
+		replaceGlobal(MapShim);
+	}
+
+	if (!support.mapUsesSameValueZero()) {
+		define(Map.prototype, {
+			get: function get(k) {
+				return Call(OrigMap$get, this, [k === 0 ? 0 : k]);
+			},
+			has: function has(k) {
+				return Call(OrigMap$has, this, [k === 0 ? 0 : k]);
+			},
+			set: function set(k, v) {
+				Call(OrigMap$set, this, [k === 0 ? 0 : k, v]);
+				return this;
+			}
+		}, {
+			get: force, has: force, set: force
+		});
+	} else if (!support.mapSupportsChaining()) {
+		define(Map.prototype, {
+			set: function set(k, v) {
+				Call(OrigMap$set, this, [k, v]);
+				return this;
+			}
+		}, { set: force });
+	}
+
+	return globalThis.Map;
 };
