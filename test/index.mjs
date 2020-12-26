@@ -14,7 +14,7 @@ test('named exports', async (t) => {
 	t.deepEqual(
 		Object.keys(MapModule).sort(),
 		['default', 'shim', 'getPolyfill', 'implementation'].sort(),
-		'has expected named exports'
+		'has expected named exports',
 	);
 
 	const { shim, getPolyfill, implementation } = MapModule;
