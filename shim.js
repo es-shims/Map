@@ -2,6 +2,7 @@
 
 var define = require('define-properties');
 var globalThis = require('globalthis')();
+var SLOT = require('internal-slot');
 var getPolyfill = require('./polyfill');
 var support = require('./lib/support');
 var addIterableToMap = require('./lib/map-helpers').addIterableToMap;
@@ -35,7 +36,11 @@ module.exports = function shimMap() {
 			if (!(this instanceof MapShim)) {
 				throw new TypeError('Constructor Map requires "new"');
 			}
+			if (this && SLOT.has(this, '[[MapCompliantConstructorShim]]')) {
+				throw new TypeError('Bad construction');
+			}
 			var m = new OrigMap();
+			SLOT.set(m, '[[MapCompliantConstructorShim]]', true);
 			if (arguments.length > 0) {
 				addIterableToMap(m, arguments[0]);
 			}

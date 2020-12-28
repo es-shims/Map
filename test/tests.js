@@ -57,7 +57,7 @@ module.exports = function (Map, t) {
 
 	t.test('throws when `.call`ed with an existing instance', function (t) {
 		var map = new Map();
-		t['throws'](function () { Map.call(map); });
+		t.throws(function () { Map.call(map); }, 'Map can not be .called on an existing map');
 		t.end();
 	});
 
