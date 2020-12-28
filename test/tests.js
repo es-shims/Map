@@ -7,15 +7,14 @@ var define = require('define-properties');
 var hasSymbols = require('has-symbols')();
 var ArrayFrom = require('array.from').implementation;
 
-/* eslint-disable */
-
-var testMapping = function (t, map, key, value, desc) {
-	if (!desc) desc = "";
-	t.equal(map.has(key), false, desc + " - .has(key) returns false");
-	t.equal(map.get(key), undefined, desc + " - .get(key) returns undefined");
-	t.equal(map.set(key, value), map, desc + " - .set(key) returns the map");
-	t.equal(map.get(key), value, desc + " - .get(key) returns the value");
-	t.equal(map.has(key), true, desc + " - .has(key) returns true");
+// eslint-disable-next-line max-params
+var testMapping = function testMapping(t, map, key, value, desc) {
+	if (!desc) { desc = ''; } // eslint-disable-line no-param-reassign
+	t.equal(map.has(key), false, desc + ' - .has(key) returns false');
+	t.equal(map.get(key), undefined, desc + ' - .get(key) returns undefined');
+	t.equal(map.set(key, value), map, desc + ' - .set(key) returns the map');
+	t.equal(map.get(key), value, desc + ' - .get(key) returns the value');
+	t.equal(map.has(key), true, desc + ' - .has(key) returns true');
 };
 
 var entriesArray = function (map) {
@@ -43,22 +42,22 @@ var expectNotEnumerable = function (t, object, desc) {
 	}
 };
 
-module.exports = function (Map, t) {
+module.exports = function runTests(Map, t) {
 	t.test('should has valid getter and setter calls', function (st) {
 		var map = new Map();
 
-		st.doesNotThrow(function () { map.get({}) });
-		st.doesNotThrow(function () { map.set({}) });
-		st.doesNotThrow(function () { map.has({}) });
-		st.doesNotThrow(function () { map["delete"]({}) });
+		st.doesNotThrow(function () { map.get({}); });
+		st.doesNotThrow(function () { map.set({}); });
+		st.doesNotThrow(function () { map.has({}); });
+		st.doesNotThrow(function () { map['delete']({}); });
 
 		st.end();
 	});
 
-	t.test('throws when `.call`ed with an existing instance', function (t) {
+	t.test('throws when `.call`ed with an existing instance', function (st) {
 		var map = new Map();
-		t.throws(function () { Map.call(map); }, 'Map can not be .called on an existing map');
-		t.end();
+		st['throws'](function () { Map.call(map); }, 'Map can not be .called on an existing map');
+		st.end();
 	});
 
 	t.test('should accept an iterable as argument', function (st) {
@@ -78,16 +77,16 @@ module.exports = function (Map, t) {
 	});
 
 	t.test('should throw with iterables that return primitives', function (st) {
-		st.throws(function () { return new Map('123'); }, TypeError, 'string');
-		st.throws(function () { return new Map([1, 2, 3]); }, TypeError, 'array of numbers');
-		st.throws(function () { return new Map(['1', '2', '3']); }, TypeError, 'array of strings');
-		st.throws(function () { return new Map([true]); }, TypeError, 'array of booleans');
+		st['throws'](function () { return new Map('123'); }, TypeError, 'string');
+		st['throws'](function () { return new Map([1, 2, 3]); }, TypeError, 'array of numbers');
+		st['throws'](function () { return new Map(['1', '2', '3']); }, TypeError, 'array of strings');
+		st['throws'](function () { return new Map([true]); }, TypeError, 'array of booleans');
 
 		st.end();
 	});
 
 	t.test('should not be callable without "new"', function (st) {
-		st.throws(Map, TypeError, 'call without new');
+		st['throws'](Map, TypeError, 'call without new');
 
 		st.end();
 	});
@@ -188,11 +187,11 @@ module.exports = function (Map, t) {
 		var map = new Map();
 
 		testMapping(st, map, {}, true, 'test {} key');
-		testMapping(st, map, null, true,'test null key' );
-		testMapping(st, map, undefined, true,'test undefined key' );
+		testMapping(st, map, null, true, 'test null key');
+		testMapping(st, map, undefined, true, 'test undefined key');
 		testMapping(st, map, '', true, 'test "" key');
-		testMapping(st, map, NaN, true,'test NaN key' );
-		testMapping(st, map, 0, true,'test 0 key' );
+		testMapping(st, map, NaN, true, 'test NaN key');
+		testMapping(st, map, 0, true, 'test 0 key');
 
 		st.end();
 	});
@@ -351,8 +350,8 @@ module.exports = function (Map, t) {
 	t.test('#size', { skip: !define.supportsDescriptors }, function (st) {
 		st.test('throws TypeError when accessed directly', function (sst) {
 			// see https://github.com/paulmillr/es6-shim/issues/176
-			sst.throws(function () { return Map.prototype.size; }, TypeError, 'Map.prototype.set throws (1)');
-			sst.throws(function () { return Map.prototype.size; }, TypeError, 'Map.prototype.set throws (2)');
+			sst['throws'](function () { return Map.prototype.size; }, TypeError, 'Map.prototype.set throws (1)');
+			sst['throws'](function () { return Map.prototype.size; }, TypeError, 'Map.prototype.set throws (2)');
 
 			sst.end();
 		});
@@ -636,12 +635,14 @@ module.exports = function (Map, t) {
 		st.end();
 	});
 
-	// Disabled since we don't have Set here
-	//	t.test('MapIterator identification test prototype inequality', { skip: !Object.getPrototypeOf }, function (st) {
-	//		var mapEntriesProto = Object.getPrototypeOf(new Map().entries());
-	//		var setEntriesProto = Object.getPrototypeOf(new Set().entries());
-	//		st.notEqual(mapEntriesProto, setEntriesProto);
-	//	});
+	/*
+	 *  Disabled since we don't have Set here
+	 * 	t.test('MapIterator identification test prototype inequality', { skip: !Object.getPrototypeOf }, function (st) {
+	 * 		var mapEntriesProto = Object.getPrototypeOf(new Map().entries());
+	 * 		var setEntriesProto = Object.getPrototypeOf(new Set().entries());
+	 * 		st.notEqual(mapEntriesProto, setEntriesProto);
+	 * 	});
+	 */
 
 	t.test('MapIterator identification', function (st) {
 		var fnMapValues = Map.prototype.values;
@@ -650,11 +651,13 @@ module.exports = function (Map, t) {
 		var testMapValues = testMap.values();
 		st.equal(testMapValues.next.call(fnMapValues.call(mapSentinel)).value, 'MapSentinel', 'extracts value from a different map');
 
-		// var testSet = new Set();
-		// var testSetValues = testSet.values();
-		// st.throws(function () {
-		// 	return testSetValues.next.call(fnMapValues.call(mapSentinel)).value;
-		// }, TypeError);
+		/*
+		 * var testSet = new Set();
+		 * var testSetValues = testSet.values();
+		 * st.throws(function () {
+		 * 	return testSetValues.next.call(fnMapValues.call(mapSentinel)).value;
+		 * }, TypeError);
+		 */
 
 		st.end();
 	});

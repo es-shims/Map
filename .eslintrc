@@ -15,6 +15,7 @@
 				"CreateIterResultObject",
 				"GetIntrinsic",
 				"GetIterator",
+				"HasOwnProperty",
 				"OrdinaryObjectCreate",
 				"OrdinarySetPrototypeOf",
 				"IsArray",
@@ -24,8 +25,8 @@
 				"SameValue",
 				"SameValueZero",
 				"ToString",
-				"Type"
-			]
+				"Type",
+			],
 		}],
 		"no-magic-numbers": [2, {
 			"ignore": [0, 1, 2]
@@ -37,8 +38,15 @@
 		{
 			"files": "**/*.mjs",
 			"rules": {
-				"no-restricted-exports": 0
-			}
+				"no-restricted-exports": 0,
+			},
+		},
+		{
+			"files": "test/**/*",
+			"rules": {
+				"max-lines-per-function": 0,
+				"no-magic-numbers": 0,
+			},
 		}
 	]
 }
