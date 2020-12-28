@@ -3,6 +3,7 @@
 var define = require('define-properties');
 var callBound = require('call-bind/callBound');
 var GetIntrinsic = require('get-intrinsic');
+var SLOT = require('internal-slot');
 var SameValue = require('es-abstract/2020/SameValue');
 var SameValueZero = require('es-abstract/2020/SameValueZero');
 
@@ -29,7 +30,7 @@ var MapShim = function Map() {
 	if (!(this instanceof Map)) {
 		throw new TypeError('Constructor Map requires "new"');
 	}
-	if (this && this['[[es6map]]']) {
+	if (this && SLOT.has(this, '[[es6map]]')) {
 		throw new TypeError('Bad construction');
 	}
 	var map = emulateES6construct(this, Map, MapShimPrototype, {
@@ -44,7 +45,7 @@ var MapShim = function Map() {
 	// circular doubly-linked list.
 	// eslint-disable-next-line no-multi-assign
 	head.next = head.prev = head;
-	map['[[head]]'] = head;
+	SLOT.set(map, '[[head]]', head);
 
 	// Optionally initialize map from iterable
 	if (arguments.length > 0) {
@@ -60,7 +61,7 @@ if (define.supportsDescriptors) {
 		enumerable: false,
 		get: function () {
 			requireMapSlot(this, 'size');
-			return this['[[size]]'];
+			return SLOT.get(this, '[[size]]');
 		}
 	});
 }
@@ -73,23 +74,24 @@ define(MapShimPrototype, {
 		var fkey = fastkey(key, true);
 		if (fkey !== null) {
 			// fast O(1) path
-			entry = this['[[storage]]'][fkey];
+			entry = SLOT.get(this, '[[storage]]')[fkey];
 			if (entry) {
 				return entry.value;
 			} else {
-				return undefined;
+				return void undefined;
 			}
 		}
-		if (this['[[map]]']) {
+		var map = SLOT.get(this, '[[map]]');
+		if (map) {
 			// fast object key path
-			entry = origMapGet(this['[[map]]'], key);
+			entry = origMapGet(map, key);
 			if (entry) {
 				return entry.value;
 			} else {
-				return undefined;
+				return void undefined;
 			}
 		}
-		var head = this['[[head]]'];
+		var head = SLOT.get(this, '[[head]]');
 		var i = head;
 		while ((i = i.next) !== head) {
 			if (SameValueZero(i.key, key)) {
@@ -97,21 +99,23 @@ define(MapShimPrototype, {
 			}
 		}
 
-		return undefined;
+		return void undefined;
 	},
 
 	has: function has(key) {
 		requireMapSlot(this, 'has');
 		var fkey = fastkey(key, true);
+		var storage = SLOT.get(this, '[[storage]]');
 		if (fkey !== null) {
 			// fast O(1) path
-			return typeof this['[[storage]]'][fkey] !== 'undefined';
+			return typeof storage[fkey] !== 'undefined';
 		}
-		if (this['[[map]]']) {
+		var map = SLOT.get(this, '[[map]]');
+		if (map) {
 			// fast object key path
-			return origMapHas(this['[[map]]'], key);
+			return origMapHas(map, key);
 		}
-		var head = this['[[head]]'];
+		var head = SLOT.get(this, '[[head]]');
 		var i = head;
 		while ((i = i.next) !== head) {
 			if (SameValueZero(i.key, key)) {
@@ -123,30 +127,34 @@ define(MapShimPrototype, {
 
 	set: function set(key, value) {
 		requireMapSlot(this, 'set');
-		var head = this['[[head]]'];
+		var head = SLOT.get(this, '[[head]]');
 		var i = head;
 		var entry;
 		var fkey = fastkey(key, true);
 		if (fkey !== null) {
+			var storage = SLOT.get(this, '[[storage]]');
 			// fast O(1) path
-			if (typeof this['[[storage]]'][fkey] === 'undefined') {
+			if (typeof storage[fkey] === 'undefined') {
 				/* eslint-disable-next-line no-multi-assign */
-				entry = this['[[storage]]'][fkey] = new MapEntry(key, value);
+				entry = storage[fkey] = new MapEntry(key, value);
 				i = head.prev;
 				// fall through
 			} else {
-				this['[[storage]]'][fkey].value = value;
+				storage[fkey].value = value;
 				return this;
 			}
-		} else if (this['[[map]]']) {
+		} else {
+			var map = SLOT.get(this, '[[map]]');
+			if (map) {
 			// fast object key path
-			if (origMapHas(this['[[map]]'], key)) {
-				origMapGet(this['[[map]]'], key).value = value;
-			} else {
-				entry = new MapEntry(key, value);
-				origMapSet(this['[[map]]'], key, entry);
-				i = head.prev;
+				if (origMapHas(map, key)) {
+					origMapGet(map, key).value = value;
+				} else {
+					entry = new MapEntry(key, value);
+					origMapSet(map, key, entry);
+					i = head.prev;
 				// fall through
+				}
 			}
 		}
 		while ((i = i.next) !== head) {
@@ -159,35 +167,39 @@ define(MapShimPrototype, {
 		if (SameValue(-0, key)) {
 			entry.key = +0; // coerce -0 to +0 in entry
 		}
-		entry.next = this['[[head]]'];
-		entry.prev = this['[[head]]'].prev;
+		entry.next = head;
+		entry.prev = head.prev;
 		entry.prev.next = entry;
 		entry.next.prev = entry;
-		this['[[size]]'] += 1;
+		SLOT.set(this, '[[size]]', SLOT.get(this, '[[size]]') + 1);
 		return this;
 	},
 
 	'delete': function (key) {
 		requireMapSlot(this, 'delete');
-		var head = this['[[head]]'];
+		var head = SLOT.get(this, '[[head]]');
 		var i = head;
 		var fkey = fastkey(key, true);
 		if (fkey !== null) {
+			var storage = SLOT.get(this, '[[storage]]');
 			// fast O(1) path
-			if (typeof this['[[storage]]'][fkey] === 'undefined') {
+			if (typeof storage[fkey] === 'undefined') {
 				return false;
 			}
-			i = this['[[storage]]'][fkey].prev;
-			delete this['[[storage]]'][fkey];
+			i = storage[fkey].prev;
+			delete storage[fkey];
 			// fall through
-		} else if (this['[[map]]']) {
+		} else {
+			var map = SLOT.get(this, '[[map]]');
+			if (map) {
 			// fast object key path
-			if (!origMapHas(this['[[map]]'], key)) {
-				return false;
-			}
-			i = origMapGet(this['[[map]]'], key).prev;
-			origMapDel(this['[[map]]'], key);
+				if (!origMapHas(map, key)) {
+					return false;
+				}
+				i = origMapGet(map, key).prev;
+				origMapDel(map, key);
 			// fall through
+			}
 		}
 		while ((i = i.next) !== head) {
 			if (SameValueZero(i.key, key)) {
@@ -195,7 +207,7 @@ define(MapShimPrototype, {
 				i.value = MapEntry.empty;
 				i.prev.next = i.next;
 				i.next.prev = i.prev;
-				this['[[size]]'] -= 1;
+				SLOT.set(this, '[[size]]', SLOT.get(this, '[[size]]') - 1);
 				return true;
 			}
 		}
@@ -204,10 +216,10 @@ define(MapShimPrototype, {
 
 	clear: function clear() {
 		requireMapSlot(this, 'clear');
-		this['[[map]]'] = OrigMap ? new OrigMap() : null;
-		this['[[size]]'] = 0;
-		this['[[storage]]'] = emptyObject();
-		var head = this['[[head]]'];
+		SLOT.set(this, '[[map]]', OrigMap ? new OrigMap() : null);
+		SLOT.set(this, '[[size]]', 0);
+		SLOT.set(this, '[[storage]]', emptyObject());
+		var head = SLOT.get(this, '[[head]]');
 		var i = head;
 		var p = i.next;
 		while ((i = p) !== head) {
@@ -238,7 +250,7 @@ define(MapShimPrototype, {
 
 	forEach: function forEach(fn) {
 		requireMapSlot(this, 'set');
-		mapForEach(this, fn, arguments.length > 1 ? arguments[1] : void 0);
+		mapForEach(this, fn, arguments.length > 1 ? arguments[1] : void undefined);
 	}
 });
 

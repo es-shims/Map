@@ -198,7 +198,7 @@ module.exports = function (Map, t) {
 
 		st.equal(map.has(key), true, 'has that key');
 		st.equal(map.has({}), false, 'doesn\'t have a shallowly equal key');
-		st.equal(map.set(key, void 0), map, 'set that key to undefined');
+		st.equal(map.set(key, undefined), map, 'set that key to undefined');
 		st.equal(map.get(key), undefined, 'the corresponding value is undefined');
 		st.equal(map.has(key), true, 'the key is still present');
 		st.equal(map.has({}), false, 'the shallowly equal key is still not present');
