@@ -55,6 +55,12 @@ module.exports = function (Map, t) {
 		st.end();
 	});
 
+	t.test('throws when `.call`ed with an existing instance', function (t) {
+		var map = new Map();
+		t['throws'](function () { Map.call(map); });
+		t.end();
+	});
+
 	t.test('should accept an iterable as argument', function (st) {
 		var map = new Map();
 		testMapping(st, map, 'a', 'b', 'add "a"->"b" to map');

@@ -77,9 +77,8 @@ define(MapShimPrototype, {
 			entry = SLOT.get(this, '[[storage]]')[fkey];
 			if (entry) {
 				return entry.value;
-			} else {
-				return void undefined;
 			}
+			return void undefined;
 		}
 		var map = SLOT.get(this, '[[map]]');
 		if (map) {
@@ -87,9 +86,8 @@ define(MapShimPrototype, {
 			entry = origMapGet(map, key);
 			if (entry) {
 				return entry.value;
-			} else {
-				return void undefined;
 			}
+			return void undefined;
 		}
 		var head = SLOT.get(this, '[[head]]');
 		var i = head;
