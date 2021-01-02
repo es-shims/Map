@@ -43,8 +43,8 @@ var MapShim = function Map() {
 
 	var head = new MapEntry(null, null);
 	// circular doubly-linked list.
-	// eslint-disable-next-line no-multi-assign
-	head.next = head.prev = head;
+	head.next = head;
+	head.prev = head;
 	SLOT.set(map, '[[head]]', head);
 
 	// Optionally initialize map from iterable
@@ -133,8 +133,8 @@ define(MapShimPrototype, {
 			var storage = SLOT.get(this, '[[storage]]');
 			// fast O(1) path
 			if (typeof storage[fkey] === 'undefined') {
-				/* eslint-disable-next-line no-multi-assign */
-				entry = storage[fkey] = new MapEntry(key, value);
+				entry = new MapEntry(key, value);
+				storage[fkey] = entry;
 				i = head.prev;
 				// fall through
 			} else {
@@ -224,11 +224,11 @@ define(MapShimPrototype, {
 			i.key = MapEntry.empty;
 			i.value = MapEntry.empty;
 			p = i.next;
-			/* eslint-disable-next-line no-multi-assign */
-			i.next = i.prev = head;
+			i.next = head;
+			i.prev = head;
 		}
-		/* eslint-disable-next-line no-multi-assign */
-		head.next = head.prev = head;
+		head.next = head;
+		head.prev = head;
 	},
 
 	keys: function keys() {

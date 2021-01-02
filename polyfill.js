@@ -4,15 +4,14 @@ var implementation = require('./implementation');
 var support = require('./lib/support');
 
 module.exports = function getPolyfill() {
-	/* eslint-disable operator-linebreak */
 	if (
-		typeof Map !== 'function' ||
-		support.mapHasOldFirefoxInterface() ||
-		!support.mapCompliantConstructor() ||
-		!support.mapAcceptsArguments() ||
-		!support.mapUsesSameValueZero() ||
-		!support.mapSupportsChaining() ||
-		!support.mapIterationFinishes()
+		typeof Map !== 'function'
+		|| support.mapHasOldFirefoxInterface()
+		|| !support.mapCompliantConstructor()
+		|| !support.mapAcceptsArguments()
+		|| !support.mapUsesSameValueZero()
+		|| !support.mapSupportsChaining()
+		|| !support.mapIterationFinishes()
 	) {
 		return implementation;
 	}

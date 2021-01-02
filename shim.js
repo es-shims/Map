@@ -49,9 +49,11 @@ module.exports = function shimMap() {
 			return m;
 		};
 		MapShim.prototype = OrigMap$prototype;
-		define(MapShim.prototype, { constructor: MapShim }, {
-			constructor: function () { return true; }
-		});
+		define(
+			MapShim.prototype,
+			{ constructor: MapShim },
+			{ constructor: force }
+		);
 
 		replaceGlobal(MapShim);
 	}
@@ -69,15 +71,21 @@ module.exports = function shimMap() {
 				return this;
 			}
 		}, {
-			get: force, has: force, set: force
+			get: force,
+			has: force,
+			set: force
 		});
 	} else if (!support.mapSupportsChaining()) {
-		define(Map.prototype, {
-			set: function set(k, v) {
-				Call(OrigMap$set, this, [k, v]);
-				return this;
-			}
-		}, { set: force });
+		define(
+			Map.prototype,
+			{
+				set: function set(k, v) {
+					Call(OrigMap$set, this, [k, v]);
+					return this;
+				}
+			},
+			{ set: force }
+		);
 	}
 
 	return globalThis.Map;
