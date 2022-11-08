@@ -1,11 +1,11 @@
 'use strict';
 
-var HasOwnProperty = require('es-abstract/2021/HasOwnProperty');
+var HasOwnProperty = require('es-abstract/2022/HasOwnProperty');
 var isEnumerable = Object.prototype.propertyIsEnumerable;
 var functionsHaveNames = require('functions-have-names')();
 var define = require('define-properties');
 var hasSymbols = require('has-symbols')();
-var ArrayFrom = require('array.from/implementation');
+var ArrayFrom = require('array.from');
 
 // eslint-disable-next-line max-params
 var testMapping = function testMapping(t, map, key, value, desc) {

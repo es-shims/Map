@@ -7,8 +7,8 @@ var getPolyfill = require('./polyfill');
 var support = require('./lib/support');
 var addIterableToMap = require('./lib/map-helpers').addIterableToMap;
 
-var OrdinarySetPrototypeOf = require('es-abstract/2021/OrdinarySetPrototypeOf');
-var Call = require('es-abstract/2021/Call');
+var OrdinarySetPrototypeOf = require('es-abstract/2022/OrdinarySetPrototypeOf');
+var Call = require('es-abstract/2022/Call');
 
 var force = function () {
 	return true;

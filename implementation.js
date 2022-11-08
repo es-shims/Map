@@ -4,8 +4,8 @@ var define = require('define-properties');
 var callBound = require('call-bind/callBound');
 var GetIntrinsic = require('get-intrinsic');
 var SLOT = require('internal-slot');
-var SameValue = require('es-abstract/2021/SameValue');
-var SameValueZero = require('es-abstract/2021/SameValueZero');
+var SameValue = require('es-abstract/2022/SameValue');
+var SameValueZero = require('es-abstract/2022/SameValueZero');
 
 var MapEntry = require('./lib/map-entry');
 var MapIterator = require('./lib/map-iterator');
