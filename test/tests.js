@@ -406,7 +406,7 @@ module.exports = function runTests(Map, t) {
 		st.end();
 	});
 
-	t.test('should have an iterator that works with polyfilled Array.from', function (st) {
+	t.test('should have an iterator that works with polyfilled Array.from', { skip: !hasSymbols }, function (st) {
 		var map = new Map();
 
 		st.equal(map.set('a', 1), map, 'add "a"->1 to map');
