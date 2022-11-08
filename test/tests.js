@@ -636,12 +636,12 @@ module.exports = function runTests(Map, t) {
 	});
 
 	/*
-	 *  Disabled since we don't have Set here
-	 * 	t.test('MapIterator identification test prototype inequality', { skip: !Object.getPrototypeOf }, function (st) {
-	 * 		var mapEntriesProto = Object.getPrototypeOf(new Map().entries());
-	 * 		var setEntriesProto = Object.getPrototypeOf(new Set().entries());
-	 * 		st.notEqual(mapEntriesProto, setEntriesProto);
-	 * 	});
+	 * Disabled since we don't have Set here
+	 * t.test('MapIterator identification test prototype inequality', { skip: !Object.getPrototypeOf }, function (st) {
+	 *		var mapEntriesProto = Object.getPrototypeOf(new Map().entries());
+	 *		var setEntriesProto = Object.getPrototypeOf(new Set().entries());
+	 *		st.notEqual(mapEntriesProto, setEntriesProto);
+	 *	});
 	 */
 
 	t.test('MapIterator identification', function (st) {
