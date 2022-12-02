@@ -32,16 +32,16 @@ map.has(3); // false
 ## Tests
 Simply clone the repo, `npm install`, and run `npm test`
 
-[package-url]: https://npmjs.org/package/es-shims/es-map
+[package-url]: https://npmjs.org/package/es-map
 [npm-version-svg]: https://versionbadg.es/es-shims/es-map.svg
 [deps-svg]: https://david-dm.org/es-shims/es-map.svg
 [deps-url]: https://david-dm.org/es-shims/es-map
 [dev-deps-svg]: https://david-dm.org/es-shims/es-map/dev-status.svg
 [dev-deps-url]: https://david-dm.org/es-shims/es-map#info=devDependencies
-[npm-badge-png]: https://nodei.co/npm/es-shims/es-map.png?downloads=true&stars=true
-[license-image]: https://img.shields.io/npm/l/es-shims/es-map.svg
+[npm-badge-png]: https://nodei.co/npm/es-map.png?downloads=true&stars=true
+[license-image]: https://img.shields.io/npm/l/es-map.svg
 [license-url]: LICENSE
-[downloads-image]: https://img.shields.io/npm/dm/es-shims/es-map.svg
+[downloads-image]: https://img.shields.io/npm/dm/es-map.svg
 [downloads-url]: https://npm-stat.com/charts.html?package=es-shims/es-map
 [codecov-image]: https://codecov.io/gh/es-shims/es-map/branch/main/graphs/badge.svg
 [codecov-url]: https://app.codecov.io/gh/es-shims/es-map/
