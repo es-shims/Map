@@ -1,11 +1,7 @@
 # es-map <sup>[![Version Badge][npm-version-svg]][package-url]</sup>
 
-> ⚠️ This package is not published on npm yet
-
 [![github actions][actions-image]][actions-url]
 [![coverage][codecov-image]][codecov-url]
-[![dependency status][deps-svg]][deps-url]
-[![dev dependency status][dev-deps-svg]][dev-deps-url]
 [![License][license-image]][license-url]
 [![Downloads][downloads-image]][downloads-url]
 
