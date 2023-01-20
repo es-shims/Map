@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v1.0.4](https://github.com/es-shims/es-map/compare/v1.0.3...v1.0.4) - 2023-01-19
+
+### Commits
+
+- [Deps] update `es-abstract`, `es-get-iterator`, `es-set-tostringtag` [`c0da2ac`](https://github.com/es-shims/es-map/commit/c0da2acce7acce755fe76e7cb6d255148e1ec813)
+- [Dev Deps] update `@ljharb/eslint-config`, `tape` [`86cd134`](https://github.com/es-shims/es-map/commit/86cd134514362330d815ed57032ab053c94a3707)
+
 ## [v1.0.3](https://github.com/es-shims/es-map/compare/v1.0.2...v1.0.3) - 2022-12-21
 
 ### Commits
