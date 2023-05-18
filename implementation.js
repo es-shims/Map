@@ -247,7 +247,7 @@ define(MapShimPrototype, {
 	},
 
 	forEach: function forEach(fn) {
-		requireMapSlot(this, 'set');
+		requireMapSlot(this, 'forEach');
 		mapForEach(this, fn, arguments.length > 1 ? arguments[1] : void undefined);
 	}
 });
