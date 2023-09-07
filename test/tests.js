@@ -1,6 +1,6 @@
 'use strict';
 
-var HasOwnProperty = require('es-abstract/2022/HasOwnProperty');
+var HasOwnProperty = require('es-abstract/2023/HasOwnProperty');
 var isEnumerable = Object.prototype.propertyIsEnumerable;
 var functionsHaveNames = require('functions-have-names')();
 var define = require('define-properties');
