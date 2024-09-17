@@ -14,7 +14,7 @@
 				"ArrayFrom",
 				"Call",
 				"CreateIterResultObject",
-				"CreateMethodProperty",
+				"DefineMethodProperty",
 				"DefinePropertyOrThrow",
 				"Get",
 				"GetIntrinsic",
