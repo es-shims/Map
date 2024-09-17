@@ -51,6 +51,7 @@
 		"@ljharb/eslint-config": "^21.1.1",
 		"array.from": "^1.1.6",
 		"auto-changelog": "^2.5.0",
+		"encoding": "^0.1.13",
 		"eslint": "=8.8.0",
 		"functions-have-names": "^1.2.3",
 		"has-strict-mode": "^1.0.1",
