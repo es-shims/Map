@@ -47,7 +47,7 @@
 	},
 	"homepage": "https://github.com/es-shims/es-map#readme",
 	"devDependencies": {
-		"@es-shims/api": "^2.5.1",
+		"@es-shims/api": "=2.5.0",
 		"@ljharb/eslint-config": "^21.1.1",
 		"array.from": "^1.1.6",
 		"auto-changelog": "^2.5.0",
