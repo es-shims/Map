@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v1.0.6](https://github.com/es-shims/Map/compare/v1.0.5...v1.0.6) - 2024-09-17
+
+### Commits
+
+- [patch] remove useless ESM files [`ee92f83`](https://github.com/es-shims/Map/commit/ee92f832010dcadfc7023747891f71d4616ae258)
+- [Refactor] update `es-abstract` usage to 2024 [`ccaddaa`](https://github.com/es-shims/Map/commit/ccaddaa52728a488bf1ceb699d7145f117c19eb2)
+- [Deps] update `call-bind`, `define-properties`, `es-abstract`, `es-set-tostringtag`, `get-intrinsic`, `globalthis`, `internal-slot`, `object.entries` [`694b2e6`](https://github.com/es-shims/Map/commit/694b2e63c9c323192c7574a24e9ac23ba57120c0)
+- [Dev Deps] update `@es-shims/api`, `@ljharb/eslint-config`, `array.from`, `auto-changelog`, `npmignore`, `tape` [`33656d7`](https://github.com/es-shims/Map/commit/33656d7ff2808dd5dc8afe437368acc0fde96d3d)
+- [meta] add missing `engines.node` [`cfdf4f7`](https://github.com/es-shims/Map/commit/cfdf4f75ce38eed94f6c15c096e8faf90bd448df)
+- [Tests] replace `aud` with `npm audit` [`55ada5c`](https://github.com/es-shims/Map/commit/55ada5c0f9af9d3e48e40e59fb312201de58b7de)
+- [Dev Deps] temporarily pin @es-shims/api [`95b362d`](https://github.com/es-shims/Map/commit/95b362d3377fb089ce93d8d925e54be5f64729ee)
+- [Dev Deps] add missing peer dep [`fd64369`](https://github.com/es-shims/Map/commit/fd643692bf7f939b0a9ffc65e76681c9670987fc)
+
 ## [v1.0.5](https://github.com/es-shims/Map/compare/v1.0.4...v1.0.5) - 2023-09-07
 
 ### Commits
