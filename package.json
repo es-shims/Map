@@ -17,7 +17,7 @@
 		"prepublish": "not-in-publish || npm run prepublishOnly",
 		"pretest": "npm run lint",
 		"lint": "eslint --ext=js,mjs .",
-		"postlint": "es-shim-api --bound",
+		"postlint": "es-shim-api --type=constructor",
 		"tests-only": "nyc tape 'test/**/*.js'",
 		"test": "npm run tests-only",
 		"posttest": "npx npm@'>=10.2' audit --production",
@@ -47,7 +47,7 @@
 	},
 	"homepage": "https://github.com/es-shims/es-map#readme",
 	"devDependencies": {
-		"@es-shims/api": "=2.5.0",
+		"@es-shims/api": "^3.0.1",
 		"@ljharb/eslint-config": "^21.1.1",
 		"array.from": "^1.1.6",
 		"auto-changelog": "^2.5.0",
