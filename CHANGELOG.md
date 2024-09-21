@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v2.0.0](https://github.com/es-shims/Map/compare/v1.0.6...v2.0.0) - 2024-09-21
+
+### Commits
+
+- [Breaking] update to es-shims API v3 [`fdcd654`](https://github.com/es-shims/Map/commit/fdcd6542a52fcb4a56a51cf1ec3cb831cb2b6d87)
+
 ## [v1.0.6](https://github.com/es-shims/Map/compare/v1.0.5...v1.0.6) - 2024-09-17
 
 ### Commits
