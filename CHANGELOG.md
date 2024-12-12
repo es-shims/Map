@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v2.0.1](https://github.com/es-shims/Map/compare/v2.0.0...v2.0.1) - 2024-12-11
+
+### Commits
+
+- [actions] split out node 10-20, and 20+ [`27a8947`](https://github.com/es-shims/Map/commit/27a89478b41e4d05f068bad6f62c88794869143d)
+- [Refactor] use `call-bound` directly, and `has-proto` [`e10dfa0`](https://github.com/es-shims/Map/commit/e10dfa0a05919170baf3b1c8d8213f8af0ed3577)
+- [Deps] update `call-bind`, `es-abstract`, `get-intrinsic`, `has-symbols` [`478c7f1`](https://github.com/es-shims/Map/commit/478c7f1895e2fc95f412ea83c17766adaac01a08)
+- [Refactor] use `iterator.prototype` [`24f6021`](https://github.com/es-shims/Map/commit/24f6021ee25357014fe61942560204adcf7ce873)
+
 ## [v2.0.0](https://github.com/es-shims/Map/compare/v1.0.6...v2.0.0) - 2024-09-21
 
 ### Commits
