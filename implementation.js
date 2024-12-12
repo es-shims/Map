@@ -1,7 +1,7 @@
 'use strict';
 
 var define = require('define-properties');
-var callBound = require('call-bind/callBound');
+var callBound = require('call-bound');
 var GetIntrinsic = require('get-intrinsic');
 var SLOT = require('internal-slot');
 var SameValue = require('es-abstract/2024/SameValue');

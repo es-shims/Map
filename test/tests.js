@@ -269,7 +269,7 @@ module.exports = function runTests(Map, t) {
 		});
 
 		st.test('enumerability', { skip: !define.supportsDescriptors }, function (sst) {
-			sst.equal(false, isEnumerable.call(Map.prototype, 'clear'), 'Math.prototype.clear is not enumerable');
+			sst.equal(false, isEnumerable.call(Map.prototype, 'clear'), 'Map.prototype.clear is not enumerable');
 			sst.end();
 		});
 
@@ -303,7 +303,7 @@ module.exports = function runTests(Map, t) {
 		});
 
 		st.test('enumerability', { skip: !define.supportsDescriptors }, function (sst) {
-			sst.equal(false, isEnumerable.call(Map.prototype, 'keys'), 'Math.prototype.keys is not enumerable');
+			sst.equal(false, isEnumerable.call(Map.prototype, 'keys'), 'Map.prototype.keys is not enumerable');
 			sst.end();
 		});
 
@@ -321,7 +321,7 @@ module.exports = function runTests(Map, t) {
 		});
 
 		st.test('enumerability', { skip: !define.supportsDescriptors }, function (sst) {
-			sst.equal(false, isEnumerable.call(Map.prototype, 'values'), 'Math.prototype.values is not enumerable');
+			sst.equal(false, isEnumerable.call(Map.prototype, 'values'), 'Map.prototype.values is not enumerable');
 			sst.end();
 		});
 
@@ -339,7 +339,7 @@ module.exports = function runTests(Map, t) {
 		});
 
 		st.test('enumerability', { skip: !define.supportsDescriptors }, function (sst) {
-			sst.equal(false, isEnumerable.call(Map.prototype, 'entries'), 'Math.prototype.entries is not enumerable');
+			sst.equal(false, isEnumerable.call(Map.prototype, 'entries'), 'Map.prototype.entries is not enumerable');
 			sst.end();
 		});
 
@@ -447,7 +447,7 @@ module.exports = function runTests(Map, t) {
 		});
 
 		st.test('enumerability', { skip: !define.supportsDescriptors }, function (sst) {
-			sst.equal(false, isEnumerable.call(Map.prototype, 'forEach'), 'Math.prototype.forEach is not enumerable');
+			sst.equal(false, isEnumerable.call(Map.prototype, 'forEach'), 'Map.prototype.forEach is not enumerable');
 			sst.end();
 		});
 
